@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class handController : MonoBehaviour
 {
     [SerializeField] private Sprite flashLight, normalRight, normalLeft;
-    [SerializeField] private GameObject leftHand, rightHand, flashLightHand, garotte;
+    [SerializeField] private GameObject leftHand, rightHand, flashLightHand, garotte, oilHand;
     [SerializeField] private GameObject flashLightBulb;
     [SerializeField] private Transform followCamera;
     [SerializeField] private Animator handAnimator;
@@ -18,6 +18,8 @@ public class handController : MonoBehaviour
     float garotteRadius = 0.5f;
     bool flashLightOn = false;
     bool garotteOut = false;
+    bool oilOut = false;
+    [SerializeField] private GameObject oilSpill;
 
 
 
@@ -35,6 +37,7 @@ public class handController : MonoBehaviour
         {
             flashLightOn = true;
             garotteOut = false;
+            oilOut = false;
         }
     }
     void OnGarotte(InputValue value)
@@ -47,6 +50,21 @@ public class handController : MonoBehaviour
         {
             garotteOut = true;
             flashLightOn = false;
+            oilOut = false;
+
+        }
+    }
+    void OnOil(InputValue value)
+    {
+        if (oilOut && value.isPressed)
+        {
+            oilOut = false;
+        }
+        else if(value.isPressed)
+        {
+            oilOut = true;
+            flashLightOn = false;
+            garotteOut = false;
 
         }
     }
@@ -54,22 +72,29 @@ public class handController : MonoBehaviour
     {
         if (value.isPressed)
         {
-            handAnimator.SetTrigger("use");    
-        }
-        if(garotteOut)
-        {
-            Collider[] garotteHits = Physics.OverlapSphere(garotteSpherePosition, garotteRadius);
-            foreach(Collider hit in garotteHits)
+            if (garotteOut)
             {
-                if (hit.CompareTag("guard"))
+                handAnimator.SetTrigger("useGarotte");
+                Collider[] garotteHits = Physics.OverlapSphere(garotteSpherePosition, garotteRadius);
+                foreach (Collider hit in garotteHits)
                 {
-
-                    if (!hit.gameObject.GetComponent<guardPatrolController>().dead)
+                    if (hit.CompareTag("guard"))
                     {
-                        handAnimator.SetBool("hit", true);
-                        hit.gameObject.GetComponent<guardPatrolController>().getStrangled();
+
+                        if (!hit.gameObject.GetComponent<guardPatrolController>().dead)
+                        {
+                            handAnimator.SetBool("hit", true);
+                            hit.gameObject.GetComponent<guardPatrolController>().getStrangled();
+                            //add logic to reduce garotte durability here
+                        }
                     }
                 }
+            }
+            else if (oilOut)
+            {
+                //add logic to remove oil from inv here
+                handAnimator.SetTrigger("useOil");
+                GameObject.Instantiate(oilSpill, transform.position + transform.forward, Quaternion.identity);
             }
         }
     }
@@ -84,6 +109,7 @@ public class handController : MonoBehaviour
             rightHand.SetActive(false);
             flashLightBulb.SetActive(true);
             leftHand.SetActive(true);
+            oilHand.SetActive(false);
         }
         else if (garotteOut)
         {
@@ -92,8 +118,16 @@ public class handController : MonoBehaviour
             leftHand.SetActive(false);
             flashLightBulb.SetActive(false);
             garotte.SetActive(true);
-
-
+            oilHand.SetActive(false);
+        }
+        else if (oilOut)
+        {
+            flashLightHand.SetActive(false);
+            rightHand.SetActive(false);
+            leftHand.SetActive(true);
+            flashLightBulb.SetActive(false);
+            garotte.SetActive(false);
+            oilHand.SetActive(true);
         }
         else
         {
@@ -102,6 +136,7 @@ public class handController : MonoBehaviour
             flashLightBulb.SetActive(false);
             leftHand.SetActive(true);
             garotte.SetActive(false);
+            oilHand.SetActive(false);
         }
 
 

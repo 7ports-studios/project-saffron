@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - patrolPoint
   - guard
+  - oil
   layers:
   - Default
   - TransparentFX

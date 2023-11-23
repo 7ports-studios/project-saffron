@@ -2892,7 +2892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2029866964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3182,9 +3182,12 @@ MonoBehaviour:
   rightHand: {fileID: 1020604318}
   flashLightHand: {fileID: 1959155155}
   garotte: {fileID: 2131299765}
+  oilHand: {fileID: 2029866963}
   flashLightBulb: {fileID: 276281738}
   followCamera: {fileID: 1469957649}
   handAnimator: {fileID: 1289736161}
+  oilSpill: {fileID: 2550536523588398091, guid: 0a2f4fb6cd3555b4f89c5fab3de97771,
+    type: 3}
 --- !u!1001 &888475272939827969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3606,7 +3609,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: aa38d7b0e367ecc4aac915dcfe957879,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa38d7b0e367ecc4aac915dcfe957879,
         type: 3}
