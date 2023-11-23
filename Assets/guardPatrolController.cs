@@ -17,7 +17,7 @@ public class guardPatrolController : MonoBehaviour
     void Start()
     {
         guardAgent = GetComponent<NavMeshAgent>();
-        guardAgent.SetDestination(navMeshDestinations[patrolIndex].position);
+        startGuardPatrol();
     }
 
 
@@ -36,14 +36,38 @@ public class guardPatrolController : MonoBehaviour
     {
         if (other.CompareTag("patrolPoint"))
         {
-            Debug.Log("rerouting");
             patrolIndex++;
             if (patrolIndex >= navMeshDestinations.Length)
             {
                 patrolIndex = 0;
             }
-            guardAgent.SetDestination(navMeshDestinations[patrolIndex].position);
+            startGuardPatrol();
 
         }
+        if (other.CompareTag("oil"))
+        {
+            guardAgent.isStopped = true;
+            guardAnimator.SetTrigger("slip");
+            StartCoroutine("waitToGetUp");
+            Destroy(other.gameObject);
+        }
+    }
+    
+    IEnumerator waitToGetUp()
+    {
+        yield return new WaitForSeconds(2);
+        guardAnimator.SetTrigger("get up");
+
+        guardAgent.isStopped = false;
+        startGuardPatrol();
+
+        yield return null;
+    }
+
+
+    void startGuardPatrol()
+    {
+        Debug.Log("rerouting");
+        guardAgent.SetDestination(navMeshDestinations[patrolIndex].position);
     }
 }

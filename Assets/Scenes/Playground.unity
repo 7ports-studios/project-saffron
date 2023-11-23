@@ -112,7 +112,7 @@ NavMeshSettings:
     agentRadius: 0.65
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 0.35
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -258,6 +258,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8069032694317455793, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99997663
+      objectReference: {fileID: 0}
+    - target: {fileID: -8069032694317455793, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0068397573
+      objectReference: {fileID: 0}
+    - target: {fileID: -8069032694317455793, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000002195426
+      objectReference: {fileID: 0}
+    - target: {fileID: -8069032694317455793, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000009803888
+      objectReference: {fileID: 0}
+    - target: {fileID: -8069032694317455793, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8069032694317455793, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8028729752870558221, guid: c73dcac0ca738924e94816302d4d8925,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -390,6 +420,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5671910290767253545, guid: c73dcac0ca738924e94816302d4d8925,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000011849403
+      objectReference: {fileID: 0}
+    - target: {fileID: -5671910290767253545, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.91411686
+      objectReference: {fileID: 0}
+    - target: {fileID: -5671910290767253545, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00014811754
+      objectReference: {fileID: 0}
+    - target: {fileID: -5671910290767253545, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9993584
       objectReference: {fileID: 0}
@@ -412,6 +457,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -4.105
+      objectReference: {fileID: 0}
+    - target: {fileID: -5671910290767253545, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5671910290767253545, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5538751756592888872, guid: c73dcac0ca738924e94816302d4d8925,
         type: 3}
@@ -1123,6 +1178,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7829577706673091268, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829577706673091268, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0000000018626451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829577706673091268, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -3.3297634e-14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829577706673091268, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 6.8264036e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829577706673091268, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7995179518529311369, guid: c73dcac0ca738924e94816302d4d8925,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -1181,6 +1261,16 @@ PrefabInstance:
     - target: {fileID: 9140253385185518857, guid: c73dcac0ca738924e94816302d4d8925,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140253385185518857, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140253385185518857, guid: c73dcac0ca738924e94816302d4d8925,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1958,7 +2048,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.65
-  m_Speed: 2
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -3283,6 +3373,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stairs_200x100x200_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335415992372505392, guid: 466621a4836aa504c87c15d88722d465,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1335415992372505392, guid: 466621a4836aa504c87c15d88722d465,
         type: 3}
@@ -5123,6 +5218,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7561066613761435406, guid: 50a0925b0c22af146a2d15615f815a1c,
         type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7561066613761435406, guid: 50a0925b0c22af146a2d15615f815a1c,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 73
       objectReference: {fileID: 0}
@@ -5893,6 +5993,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stairs_200x100x200_Prefab(1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335415992372505392, guid: 466621a4836aa504c87c15d88722d465,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1335415992372505392, guid: 466621a4836aa504c87c15d88722d465,
         type: 3}
