@@ -14,6 +14,7 @@ public class handController : MonoBehaviour
     [SerializeField] private GameObject flashLightBulb;
     [SerializeField] private Transform followCamera;
     [SerializeField] private Animator handAnimator;
+    [SerializeField] private int oilPointsCost = 15, garottePointsCost = 20;
     Vector3 garotteSpherePosition;
     float garotteRadius = 0.5f;
     bool flashLightOn = false;
@@ -75,6 +76,11 @@ public class handController : MonoBehaviour
             if (garotteOut)
             {
                 handAnimator.SetTrigger("useGarotte");
+                //remove action points if using while caught, even if missing
+                if (actionPointsController.instance.caught)
+                {
+                    actionPointsController.instance.removeActionPoints(garottePointsCost);
+                }
                 Collider[] garotteHits = Physics.OverlapSphere(garotteSpherePosition, garotteRadius);
                 foreach (Collider hit in garotteHits)
                 {
@@ -83,8 +89,11 @@ public class handController : MonoBehaviour
 
                         if (!hit.gameObject.GetComponent<guardPatrolController>().dead)
                         {
-                            handAnimator.SetBool("hit", true);
-                            hit.gameObject.GetComponent<guardPatrolController>().getStrangled();
+                            if (hit.gameObject.GetComponent<guardPatrolController>().playerIsBehind)
+                            {
+                                handAnimator.SetBool("hit", true);
+                                hit.gameObject.GetComponent<guardPatrolController>().getStrangled();
+                            }
                             //add logic to reduce garotte durability here
                         }
                     }
@@ -92,6 +101,10 @@ public class handController : MonoBehaviour
             }
             else if (oilOut)
             {
+                if (isCaught())
+                {
+                    actionPointsController.instance.removeActionPoints(oilPointsCost);
+                }
                 //add logic to remove oil from inv here
                 handAnimator.SetTrigger("useOil");
                 GameObject.Instantiate(oilSpill, transform.position + transform.forward, Quaternion.identity);
@@ -110,6 +123,7 @@ public class handController : MonoBehaviour
             flashLightBulb.SetActive(true);
             leftHand.SetActive(true);
             oilHand.SetActive(false);
+            garotte.SetActive(false);
         }
         else if (garotteOut)
         {
@@ -146,5 +160,10 @@ public class handController : MonoBehaviour
     {
         Gizmos.DrawSphere(transform.position + transform.forward, garotteRadius);
         
+    }
+
+    bool isCaught()
+    {
+        return actionPointsController.instance.caught;
     }
 }
