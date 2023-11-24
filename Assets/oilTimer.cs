@@ -15,7 +15,8 @@ public class oilTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timerValue += Time.deltaTime;
+        if(!actionPointsController.instance.caught)
+            timerValue += Time.deltaTime;
 
         if(timerValue > timerMax)
         {

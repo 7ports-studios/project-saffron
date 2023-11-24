@@ -14,9 +14,15 @@ public class guardPatrolController : MonoBehaviour
     [SerializeField] private Animator guardAnimator;
     public bool dead = false;
     public Transform player;
-
     public bool playerIsBehind = false;
     Collider[] inSight;
+    bool playerDetected = false;
+    //number of frames the player needs to stay out of sight to avoid continually being chased
+    int framesToLose = 5000;
+    int framesOutOfSight = 0;
+    int framesSinceReset = 0;
+    public float runSpeed = 3.5f;
+    public float walkSpeed = 2.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +45,54 @@ public class guardPatrolController : MonoBehaviour
         {
             playerIsBehind = false;
         }
+
+        if(playerDetected)
+        {
+            Debug.Log("searching for Player");
+            RaycastHit hit = new RaycastHit();
+            Physics.Raycast(new Ray(transform.position + transform.forward, player.transform.position - transform.position), out hit, 20);
+            if(hit.collider != null )
+            {
+                if (!hit.collider.CompareTag("Player"))
+                {
+                    framesOutOfSight++;
+                    framesSinceReset++;
+                }
+                else
+                {
+                    Debug.Log("player Spotted");
+                    framesOutOfSight = 0;
+                    framesSinceReset = 0;
+                    guardAgent.SetDestination(player.transform.position);
+                    //guardAnimator.SetTrigger("run");
+                    guardAgent.speed = runSpeed;
+                }
+                if (framesSinceReset >= 1000)
+                {
+                    Debug.Log("fuck they're not here");
+                    guardAgent.SetDestination(player.transform.position);
+                    framesSinceReset = 0;
+                }
+                if (framesOutOfSight >= framesToLose)
+                {
+                    Debug.Log("Player lost");
+                    playerDetected = false;
+                    guardAnimator.SetTrigger("walk");
+                    guardAgent.isStopped = false;
+                    framesOutOfSight = 0;
+                    framesSinceReset= 0;
+                    guardAgent.speed = walkSpeed;
+                    guardAnimator.SetBool("chasing", false);
+                    startGuardPatrol();
+                }
+            }
+        }
     }
 
 
     private void FixedUpdate()
     {
-        inSight = Physics.OverlapSphere(transform.position + (transform.forward*5), 5f);
+        inSight = Physics.OverlapSphere(transform.position + (transform.forward*6), 6f);
         foreach(Collider collider in inSight)
         {
             //only compute line of sight if the object is relevant (i.e. player or a dead body)
@@ -54,13 +102,13 @@ public class guardPatrolController : MonoBehaviour
                 Physics.Raycast(new Ray(transform.position + transform.forward, collider.transform.position - transform.position), out hit, 20);
                 if (hit.collider != null)
                 {
-                    Debug.Log(hit.collider.name);
-                    if (hit.collider.Equals(collider) && !actionPointsController.instance.caught)
+                    if (hit.collider.Equals(collider) && !actionPointsController.instance.caught && !playerDetected)
                     {
                         guardAnimator.SetTrigger("point");
                         guardAgent.isStopped = true;
                         actionPointsController.instance.caught = true;
                         actionPointsController.instance.StartCoroutine("beingCaught");
+                        StartCoroutine("waitForTime");
                     }
 
                 }
@@ -77,9 +125,12 @@ public class guardPatrolController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => !actionPointsController.instance.caught);
+        playerDetected = true;
         guardAnimator.SetTrigger("run");
         guardAgent.isStopped = false;
         guardAgent.SetDestination(player.transform.position);
+        guardAgent.speed = runSpeed;
+        guardAnimator.SetBool("chasing", true);
 
     }
 
@@ -129,13 +180,19 @@ public class guardPatrolController : MonoBehaviour
 
     void startGuardPatrol()
     {
-        Debug.Log("rerouting");
         guardAgent.SetDestination(navMeshDestinations[patrolIndex].position);
     }
 
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(transform.position + transform.forward * 5, 5f);
+        Gizmos.DrawSphere(transform.position + transform.forward * 6, 6f);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

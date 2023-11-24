@@ -32,7 +32,7 @@ public class actionPointsController : MonoBehaviour
         if((actionPoints < maxActionPoints) && !caught) {
 
             timer += Time.deltaTime;
-            if(timer >= 10)
+            if(timer >= 5)
             {
                 actionPoints++;
                 timer = 0;
@@ -61,16 +61,16 @@ public class actionPointsController : MonoBehaviour
     IEnumerator beingCaught()
     {
         float walkedDistance = 0;
+        currentPosition = transform.position;
 
         while(actionPoints > 0 && caught) {
-            Debug.Log(walkedDistance); 
             if(transform.position != currentPosition) { 
                 walkedDistance += Vector3.Distance(transform.position, currentPosition);
                 currentPosition = transform.position;
             }
-            while(walkedDistance >= 1)
+            while(walkedDistance >= 0.5)
             {
-                walkedDistance -= 1;
+                walkedDistance -= 0.5f;
                 actionPoints--;
             }
 
